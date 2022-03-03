@@ -1,0 +1,15 @@
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ .Values.appName }}
+  labels:
+    app-name: {{ .Values.appName }}
+    app-version: {{ .Values.appVersion }}
+spec:
+  selector:
+    app-name: {{ .Values.appName }}
+  ports:
+  - name: http
+    port: 80
+    targetPort: {{ .Values.appPort }}

@@ -1,0 +1,78 @@
+replicaCount: 1
+strategy: "RollingUpdate"
+
+image:
+  repository: impel1o
+imagePullSecrets: docker.io
+
+appVersion: v1
+appPort: 8080
+appName: devops-test
+
+ingress:
+  enabled: false
+  custom:
+    enabled: false
+    domain: example.com
+  annotations:
+    enabled: false
+    params: {}
+      # - "nginx.ingress.kubernetes.io/cors-allow-headers: x-app-version, Authorization,Client-Authentication, x-app-version, x-device-platform, x-device-id"
+      # - "nginx.ingress.kubernetes.io/cors-allow-origin: '*'"
+      # - "nginx.ingress.kubernetes.io/enable-cors: 'true'"
+
+env:
+  REDIS_ADDR: "devops-test-redis-master:6379"
+
+resources:
+  limits:
+    memory: "100Mi"
+    cpu: "100m"
+  requests:
+    memory: "100Mi"
+    cpu: "100m"
+
+
+
+metrics: {}
+#example
+# metrics:
+#    interval: "30s"
+#    path: "/metrics"
+
+
+redis:
+  enabled: true
+  cluster:
+    enabled: false
+  usePassword: false
+  redisPort: 6379
+  master:
+    resources:
+      limits:
+        memory: 500Mi
+      requests:
+        cpu: 500m
+        memory: 100Mi
+    service:
+      type: ClusterIP
+      port: 6379
+    persistence:
+      enabled: true
+   #configmap: |-
+    #   maxmemory 450mb
+    #   maxmemory-policy allkeys-lru
+# slave:
+  #   configmap: |-
+  #     maxmemory 450mb
+  #     maxmemory-policy allkeys-lru
+  metrics:
+    enabled: true
+    resources:
+      limits:
+        memory: 300Mi
+      requests:
+        cpu: 100m
+        memory: 100Mi
+    serviceMonitor:
+      enabled: true

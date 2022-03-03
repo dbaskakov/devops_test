@@ -1,0 +1,32 @@
+name: cicd
+
+on:
+  push:
+    branches:
+      - master
+  pull_request:
+    branches:
+      - master
+    types:
+      - closed
+
+env:
+  CI_BUILD_IMAGE: 'docker.io/impel1o'
+
+
+jobs:
+
+  build-image:
+    name: "Build image"
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: docker/login-action@v1
+        with:
+          registry: docker.io
+          username: impel1o
+          password: ${{ secrets.DOCKER_PASSWORD }}
+      - run: docker build -t $CI_BUILD_IMAGE:$GITHUB_RUN_NUMBER -f ./Dockerfile .
+      - run: docker push $CI_BUILD_IMAGE:$GITHUB_RUN_NUMBER
+
+  
