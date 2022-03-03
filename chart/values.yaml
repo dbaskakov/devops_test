@@ -5,7 +5,7 @@ image:
   repository: impel1o
 imagePullSecrets: docker.io
 
-appVersion: v1
+appVersion: v3
 appPort: 8080
 appName: devops-test
 
