@@ -17,6 +17,8 @@ type server struct {
 	logger *zap.Logger
 }
 
+var ctx = context.Background()
+
 func main() {
 	logger, err := zap.NewProduction()
 	if err != nil {
@@ -34,10 +36,10 @@ func main() {
         panic(err1)
     }
 
-    val, err1 := rdb.Get(ctx, "key").Result()
-    if err1 != nil {
-        panic(err1)
-    }
+    // val, err1 := rdb.Get(ctx, "key").Result()
+    // if err1 != nil {
+    //     panic(err1)
+    // }
     // fmt.Println("key", val)
 
 	srv := &server{
