@@ -13,7 +13,7 @@ NOTE: The following tasks are estimated to take no more than 3 hours total.
 2. Create docker-compose.yaml to replicate a full running environment 
 so that a developer can run the entire application locally without having
 to run any dependencies (i.e. redis) in a separate process.
-3. Explain how you would monitor this application in production. 
+3. Explain how you would monitor this application in production. ( /metrics /ready /alive + redis_exporter  + gap stack )
 Please write code/scripts to do the monitoring.
 
 ### Kubernetes(MiniKube) Tasks
