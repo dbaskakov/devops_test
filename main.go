@@ -29,6 +29,17 @@ func main() {
 		DB:       0,
 	})
 
+	err1 := rdb.Set(ctx, "key", "value", 0).Err()
+    if err1 != nil {
+        panic(err1)
+    }
+
+    val, err1 := rdb.Get(ctx, "key").Result()
+    if err1 != nil {
+        panic(err1)
+    }
+    // fmt.Println("key", val)
+
 	srv := &server{
 		redis: rdb,
 		logger: logger,
