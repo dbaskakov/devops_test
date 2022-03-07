@@ -16,7 +16,7 @@ to run any dependencies (i.e. redis) in a separate process.
 3. Explain how you would monitor this application in production. 
 3.1 Приложение должно отдавать метрики в формате прометеуса:
 - business metrics ( % 500 от общего количетсва запросов)
-- tech metrics (https://grafana.com/grafana/dashboards/6781 + добавлю throtling / count unavailable pods in deployment)
+- tech metrics (https://grafana.com/grafana/dashboards/6781 + добавлю throtling / count unavailable pods in deployment) - https://ibb.co/RTk8jG6
 - app metrics ( request rate / request errors / Request duration )
 3.2 Приложение должно выводить логи в stdout/stderr в json формате
 3.3 Приложение должно поддерживать трейсинг
