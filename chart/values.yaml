@@ -5,21 +5,14 @@ image:
   repository: impel1o
 imagePullSecrets: docker.io
 
-appVersion: v3
+appVersion: v5
 appPort: 8080
 appName: devops-test
 
 ingress:
   enabled: false
-  custom:
-    enabled: false
-    domain: example.com
-  annotations:
-    enabled: false
-    params: {}
-      # - "nginx.ingress.kubernetes.io/cors-allow-headers: x-app-version, Authorization,Client-Authentication, x-app-version, x-device-platform, x-device-id"
-      # - "nginx.ingress.kubernetes.io/cors-allow-origin: '*'"
-      # - "nginx.ingress.kubernetes.io/enable-cors: 'true'"
+  domain: example.com
+
 
 env:
   REDIS_ADDR: "devops-test-redis-master:6379"

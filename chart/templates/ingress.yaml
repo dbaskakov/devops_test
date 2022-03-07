@@ -5,51 +5,13 @@ kind: Ingress
 metadata:
   name: {{ .Values.appName }}
   annotations:
-    kubernetes.io/ingress.class: "nginx"
-    {{- if .Values.ingress.certs }}
-    cert-manager.io/cluster-issuer: "cluster-issuer"
-    {{- end}}
-    {{- if .Values.ingress.annotations.enabled }}
-    {{ range $key, $val := .Values.ingress.annotations.params }}
-    {{ $val  }}
-    {{ end }}
-    {{ end }}
 spec:
-  {{- if .Values.ingress.certs }}
-  tls:
-  - hosts:
-      {{- if .Values.ingress.custom.enabled }}
-      - "{{ .Values.ingress.custom.domain }}"
-      {{- else}}
-      - "{{ .Values.appName}}.{{ .Release.Namespace}}.k8s.dev.mos.corp"
-      {{- end}}
-    secretName: {{ .Values.appName }}-tls
-  {{- end }}
   rules:
-  {{- if .Values.ingress.custom.enabled }}
-    - host: "{{ .Values.ingress.custom.domain }}"
+    - host: "{{ .Values.ingress.domain }}"
       http:
         paths:
           - path: /
             backend:
               serviceName: {{ .Values.appName }}
               servicePort: 80
-  {{else}}
-    - host: "{{ .Values.appName}}.{{ .Release.Namespace}}.k8s.dev.mos.corp"
-      http:
-        paths:
-          - path: /
-            backend:
-              serviceName: {{ .Values.appName }}
-              servicePort: 80
-  {{- end }}
-  {{- if .Values.ingress.external }}
-    - host: "{{ .Values.appName}}-{{ .Release.Namespace }}.dev.ya.magnit.ru"
-      http:
-        paths:
-          - path: /
-            backend:
-              serviceName: {{ .Values.appName }}
-              servicePort: 80
-  {{ end }}
 {{ end }}
